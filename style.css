@@ -37,7 +37,6 @@ main, body, header {
 .top {
   max-width: 800px;
   width: 100%;
-  /* border-bottom: 10px; */
   display: inline-block;
 }
 
@@ -50,7 +49,6 @@ main, body, header {
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   color: white;
-  /* display: inline-block; */d
   max-width: 360px;
   box-sizing: border-box;
   float: left;
@@ -63,9 +61,6 @@ main, body, header {
   width: 45%;
   max-width: 360px;
   background-color: black;
-  /* border: 40px solid black; */
-  /* padding: 40px; */
-  /* display: inline-block; */
   text-align: center;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
@@ -78,7 +73,6 @@ main, body, header {
   margin-top: 20px;
   max-width: 800px;
   width: 100%;
-  /* border-top: 10px; */
   margin-bottom: 100px;
   display: inline-block;
 }
@@ -98,44 +92,25 @@ main, body, header {
 
 .startstop {
   width: 45%;
-  /* display: inline-block; */
-  /* max-width: 360px; */
   float: right;
 }
 
 .buttons {
   width:100%;
-  /* display: block; */
   background-color: black;
   border-radius: 5px;
-  /* border:12px solid black; */
-  /* display:inline-block; */
   cursor:pointer;
   color: white;
   font-family: Helvetica;
   font-size: 23px;
   font-weight: bold;
-  /* padding:18px 39px; */
   text-decoration:none;
-  /* text-shadow:4px 6px 5px black; */
   padding: 40px;
   text-align: center;
-  /* border: 30px solid black; */
   box-sizing: border-box;
   margin-bottom: 30px;
-  /* max-width: 300px; */
-  /* margin: 5px; */
-  /* position: relative; */
-  /* right:6%; */
-  /* left: 45%; */
-  /* right: -400px; */
-  /* top: -200px; */
 }
 
 .buttons:hover {
   background: url(images/newheader.jpg);
 }
-/* .buttons:active {
-  position:relative;
-  top:1px;
-} */

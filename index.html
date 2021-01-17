@@ -71,10 +71,10 @@
     // sends users to different links according to option they chose
     function redirect(option) {
       if(option == 0) {window.open(yourlink);}
-      else if(option == 1) {window.open('https://en.wikipedia.org/wiki/Special:Random');}
-      else if(option == 2) {}
-      else if(option == 3) {window.open('https://random-ize.com/random-youtube/');} // goes to random youtube generator website
-      else if(option == 4) {}
+      else if(option == 1) {window.open('https://en.wikipedia.org/wiki/Special:Random');} // random wikipedia article link
+      else if(option == 2) {window.open('http://www.diddly.com/random/');} // link to random google image search website
+      else if(option == 3) {window.open('https://random-ize.com/random-youtube/');} // link to random youtube generator website
+      else if(option == 4) {window.open('https://imgur.com/gallery/ySqo2');} // link to random creepy pictures website
     }
   </script>
 
@@ -88,6 +88,8 @@
     </div>
 
     <div class="top">
+
+      <!-- short description of what it does -->
       <div class="text">
         <p>Have you ever wanted to browse your computer
           without the fear of judgement from those around you?</p>
@@ -96,6 +98,7 @@
           pop up if someone shows up behind you.</p>
       </div>
 
+      <!-- webcam preview container -->
       <div class="webcam-container" id="webcam-container">
         <p>Webcam preview</p>
       </div>
@@ -107,6 +110,7 @@
         <br>
         <br>
 
+        <!-- radio button options -->
         <input type="radio" checked= "checked" id="choice" name="radio" onclick="option=0" value="choice">
         Link of your choice
         <br>
@@ -129,6 +133,7 @@
         <label for="rebel">DON'T CHOOSE THIS</label><br>
       </div>
 
+      <!-- start and stop button -->
       <div class="startstop">
         <div onclick="if(option==-1){alert('Please choose your option');} else if(option==0 && yourlink==('')){alert('Please type your link');} else if(!isWebcamOn){webcamStart(); isWebcamOn=true;}" class="buttons">Start</div>
         <!-- <br> -->
