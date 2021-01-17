@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Browser Disguise</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="./style.css">
+
+  <!-- Google Teachable Machine API -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+</head>
+
+<body>
+  <script type="text/javascript">
+    // variables
+    var isWebcamOn = false;
+    var option = 0;
+    var a;
+    var yourlink = "";
+
+    // from google teachable machine:
+    // the link to model provided by Teachable Machine export panel
+    const URL = "https://teachablemachine.withgoogle.com/models/DzSCfASgE/";
+    let model, webcam, labelContainer, maxPredictions;
+    // Load the image model and setup the webcam
+    async function init() {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+        model = await tmImage.load(modelURL, metadataURL);
+        webcam = new tmImage.Webcam(290, 290, true); // width, height, flip
+        await webcam.setup(); // request access to the webcam
+        await webcam.play();
+        loop();
+        document.getElementById("webcam-container").firstChild.innerHTML="Webcam preview is loading...";
+        document.getElementById("webcam-container").appendChild(webcam.canvas);
+    }
+
+    async function loop() {
+        webcam.update(); // update the webcam frame
+        if(isWebcamOn) {
+          await predict();
+          setTimeout(loop, 100);
+        }
+    }
+
+    // run the webcam image through the image model
+    async function predict() {
+        // predict can take in an image, video or canvas html element
+        const prediction = await model.predict(webcam.canvas);
+        const classPrediction = prediction[1].probability.toFixed(2);
+        console.log(classPrediction);
+        // calles redirect() if probability is greater than or equal to 0.9
+        if (prediction[1].probability.toFixed(2)>=0.9) {
+          webcamEnd();
+          isWebcamOn=false;
+          redirect(option);
+        }
+    }
+
+    // starts webcam
+    async function webcamStart() {
+      yourlink = document.getElementById("link").value;
+      init();
+    }
+
+    // ends webcam
+    async function webcamEnd() {
+      webcam.stop();
+    }
+
+    // sends users to different links according to option they chose
+    function redirect(option) {
+      if(option == 0) {window.open(yourlink);}
+      else if(option == 1) {window.open('https://en.wikipedia.org/wiki/Special:Random');}
+      else if(option == 2) {}
+      else if(option == 3) {window.open('https://random-ize.com/random-youtube/');} // goes to random youtube generator website
+      else if(option == 4) {}
+    }
+  </script>
+
+  <header>
+    <h1 class="header">
+    </h1>
+  </header>
+  <main>
+    <div class="marquee">
+      <marquee> Shhhhhhh . . . this website is a secret ;) </marquee>
+    </div>
+
+    <div class="top">
+      <div class="text">
+        <p>Have you ever wanted to browse your computer
+          without the fear of judgement from those around you?</p>
+        <p color=#263C43>WELL NOW YOU CAN!</p>
+        <p>With access to your webcam, a link of your choice will immediately
+          pop up if someone shows up behind you.</p>
+      </div>
+
+      <div class="webcam-container" id="webcam-container">
+        <p>Webcam preview</p>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <div class="radiobuttons">
+        Choose your disguise
+        <br>
+        <br>
+
+        <input type="radio" checked= "checked" id="choice" name="radio" onclick="option=0" value="choice">
+        Link of your choice
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" id="link" name="link" onclick="document.getElementById('choice').checked=true"/><br>
+
+        <input type="radio" id="wiki" name="radio" onclick="option=1" value="wiki">
+        <label for="wiki">Random Wikipedia article</label><br>
+
+        <input type="radio" id="google" name="radio" onclick="option=2" value="google">
+        <label for="google">Random Google search</label><br>
+
+        <input type="radio" id="youtube" name="radio" onclick="option=3" value"youtube">
+        <label for="youtube">Random Youtube Video</label><br>
+
+        <input type="radio" id="surprise" name="radio" onclick="option=4" value="surprise">
+        <label for="surprise">Surprise me!</label><br>
+
+        <input type="radio" id="rebel" name="radio" onclick="alert('What a risk-taker'); option=-1" value"rebel">
+        <label for="rebel">DON'T CHOOSE THIS</label><br>
+      </div>
+
+      <div class="startstop">
+        <div onclick="if(option==-1){alert('Please choose your option');} else if(option==0 && yourlink==('')){alert('Please type your link');} else if(!isWebcamOn){webcamStart(); isWebcamOn=true;}" class="buttons">Start</div>
+        <!-- <br> -->
+        <div onclick="if(isWebcamOn){webcamEnd(); isWebcamOn=false;}" class="buttons">Stop</div>
+      </div>
+    </div>
+
+  </main>
+</body>
+</html>
